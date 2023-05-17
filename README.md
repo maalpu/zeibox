@@ -36,3 +36,22 @@
     * bd/signup.go
   - Reemplazar: zeiboxuser por zeibox
   - Correr lo siguiente en la línea de comandos: go tidy (Instalará las dependencias)
+4. Instalar:
+  ```
+  $ go get github.com/aws/aws-lambda-go/events
+  ```
+5. Configuramos Authorizer y entornos en la API Gateway 
+  - Authorization - Administrar autorizadores - <Crear>
+  - Configuración del autorizador - (*)JWT
+    + Nombre: zeibox_cognito
+    + URL del emisor: https://cognito-idp.[region].amazonaws.com/[ID de grupo de usuarios cognito]
+      * https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Ckfx87Y5n
+    + <Agregar público> [ID de la aplicación de cognito] Ir a Cognito - zeibox - Integración de aplicaciones - Debajo ID de cliente
+      * 74vjo6etj3vfh7qtlmdqi8g914
+      * <Crear>
+  - Stages <Crear>
+    + Nombre: zeibox
+    + (Activar) Habilitar la implementación automática
+    + <Crear>
+  6. Creamos el paquete: auth/auth.go
+  
