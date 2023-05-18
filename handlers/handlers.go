@@ -6,6 +6,7 @@ import (
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/maalpu/zeibox/auth"
+	"github.com/maalpu/zeibox/routes"
 )
 
 func Manejadores(path string, method string, body string, headers map[string]string, request events.APIGatewayV2HTTPRequest) (int, string) {
@@ -71,6 +72,10 @@ func ProcesoProducts(body string, path string, method string, user string, id in
 }
 
 func ProcesoCategory(body string, path string, method string, user string, id int, request events.APIGatewayV2HTTPRequest) (int, string) {
+	switch method {
+	case "POST":
+		return routes.InsertCategory(body, user)
+	}
 	return 400, "Method Invalid"
 }
 
